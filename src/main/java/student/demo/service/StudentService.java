@@ -18,7 +18,7 @@ public class StudentService {
     }
 
     public Student getStudentById(Integer id) {
-        return studentRepository.findById(id).orElseThrow(() -> new RuntimeException("Student not found"));
+        return studentRepository.findById(id).orElseThrow(() -> new RuntimeException("student not found"));
     }
 
     public List<Student> getAllStudents() {
