@@ -25,15 +25,18 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
-    public Student updateStudent(Student student) {
-        return studentRepository.save(student);
+    public Student updateStudent(int id, Student student) {
+
+        Student existingStudent = studentRepository.findById((int) id)
+                .orElseThrow(() -> new RuntimeException("Student not found"));
+
+        existingStudent.setName(student.getName());
+        existingStudent.setEmail(student.getEmail());
+
+        return studentRepository.save(existingStudent);
     }
 
     public void deleteStudentById(Integer id) {
         studentRepository.delete(getStudentById(id));
-    }
-
-    public void deleteTodo(Student student) {
-        studentRepository.delete(student);
     }
 }

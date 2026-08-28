@@ -42,9 +42,19 @@ public class StudentController {
     }
 
     // UPDATE STUDENT
-    @PutMapping
-    ResponseEntity<Student> updateStudentById(@RequestBody Student student) {
-        return new ResponseEntity<>(studentService.updateStudent(student), HttpStatus.OK);
+    @PutMapping("/{id}")
+    public ResponseEntity<Student> updateStudent(
+            @PathVariable int id,
+            @RequestBody Student student) {
+
+        try {
+            Student updatedStudent = studentService.updateStudent(id, student);
+
+            return new ResponseEntity<>(updatedStudent, HttpStatus.OK);
+
+        } catch (RuntimeException exception) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     //DELETE STUDENT
