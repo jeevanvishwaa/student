@@ -25,11 +25,11 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
-    public Student updateTodo(Student student) {
+    public Student updateStudent(Student student) {
         return studentRepository.save(student);
     }
 
-    public void deleteTodoById(Integer id) {
+    public void deleteStudentById(Integer id) {
         studentRepository.delete(getStudentById(id));
     }
 

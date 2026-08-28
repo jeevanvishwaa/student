@@ -23,12 +23,12 @@ public class StudentController {
         Student createdStudent = studentService.createStudent(student);
         return new ResponseEntity<>(createdStudent, HttpStatus.CREATED);
     }
+
     // GET ALL STUDENTS
     @GetMapping
     ResponseEntity<List<Student>> getStudents() {
         return new ResponseEntity<List<Student>>(studentService.getAllStudents(), HttpStatus.OK);
     }
-
 
     // GET STUDENT BY ID
     @GetMapping("/{id}")
@@ -37,20 +37,19 @@ public class StudentController {
             Student createdStudent = studentService.getStudentById(id);
             return new ResponseEntity<>(createdStudent, HttpStatus.OK);
         } catch (RuntimeException exception) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
     }
 
+    // UPDATE STUDENT
+    @PutMapping
+    ResponseEntity<Student> updateStudentById(@RequestBody Student student) {
+        return new ResponseEntity<>(studentService.updateStudent(student), HttpStatus.OK);
+    }
 
-    // DELETE STUDENT
+    //DELETE STUDENT
     @DeleteMapping("/{id}")
-    public String deleteStudent(@PathVariable int id) {
-
-        if (studentRepository.existsById(id)) {
-            studentRepository.deleteById(id);
-            return "Student deleted successfully";
-        }
-
-        return "Student not found";
+    void deleteTodoById(@PathVariable int id) {
+        studentService.deleteStudentById(id);
     }
 }
